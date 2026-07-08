@@ -24,6 +24,20 @@ This folder contains a Playwright test framework scaffold.
    npm run test:report
    ```
 
+## Docker
+
+Run the full Playwright suite in a container with one command and no Node.js installation on your machine:
+
+```bash
+docker compose up --build --exit-code-from playwright
+```
+
+If your Docker setup uses the legacy Compose binary, the equivalent command is:
+
+```bash
+docker-compose up --build --exit-code-from playwright
+```
+
 ## Files
 
 - `package.json` - project scripts and Playwright dependency

@@ -1,0 +1,17 @@
+name: Playwright Docker Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  playwright-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run Playwright tests with Docker
+        run: docker compose up --build --exit-code-from playwright
