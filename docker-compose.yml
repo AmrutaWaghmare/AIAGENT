@@ -2,6 +2,7 @@ services:
   playwright:
     build: .
     working_dir: /app
+    shm_size: 1gb
     command: ["npm", "test"]
     volumes:
       - ./test-results:/app/test-results
