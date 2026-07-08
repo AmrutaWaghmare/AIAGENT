@@ -8,10 +8,28 @@ on:
 jobs:
   playwright-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Verify Docker Compose availability
+        run: |
+          docker --version
+          if docker compose version >/dev/null 2>&1; then
+            echo "Using docker compose"
+          elif command -v docker-compose >/dev/null 2>&1; then
+            echo "Using docker-compose"
+          else
+            echo "Docker Compose is not available" >&2
+            exit 1
+          fi
+
       - name: Run Playwright tests with Docker
-        run: docker compose up --build --exit-code-from playwright
+        run: |
+          if docker compose version >/dev/null 2>&1; then
+            docker compose up --build --exit-code-from playwright
+          else
+            docker-compose up --build --exit-code-from playwright
+          fi
